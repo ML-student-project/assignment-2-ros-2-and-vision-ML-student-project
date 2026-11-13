@@ -29,8 +29,10 @@ setup(
     entry_points={
         'console_scripts': [
             "py_node = aisd_vision.my_first_node:main",
-            "gesture_publisher = aisd_vision.gesture_node:main",
-            "gesture_listener = aisd_vision.listener:main",
+            "test_hands_listener = aisd_vision.test_listener:main",
+            'image_publisher = aisd_vision.image_publisher:main',
+            'hands = aisd_vision.hands:main',
+
         ],
     },
 )
