@@ -1,0 +1,2 @@
+float32 xpinky
+float32 xindex

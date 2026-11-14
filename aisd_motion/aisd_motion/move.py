@@ -8,7 +8,7 @@ from geometry_msgs.msg import Twist
 class Move(Node):
 
     def __init__(self):
-        super().__init__('Move Node')
+        super().__init__('Move_Node')
 
         # Subscribe to the 'cmd_hand' topic to receive hand gesture coordinates.
         self.subscription = self.create_subscription(
