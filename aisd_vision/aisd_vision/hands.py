@@ -25,15 +25,16 @@ class Hands(Node):
 
 
     def listener_callback(self, msg):
-        frame = self.br.imgmsg_to_cv2(msg)
+        frame = self.br.imgmsg_to_cv2(msg)   # Convert ROS Image message to OpenCV image
 
         PINKY_FINGER_TIP = 20    # pinky tip landmark is index 20.
         INDEX_FINGER_TIP = 8     # Index tip landmark is index 8.
-        # Analyse the image for hands
+
+        # Initialize the mediapipe model.
         with mp_hands.Hands(
-            model_complexity=0,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5) as myhands:
+            model_complexity=1,                       # Complexity 0 is Lite (fast), and 1 is Full (balanced).
+            min_detection_confidence=0.8,             # Set model confidence to 0.8 for better accuracy. False positives at 0.5.
+            min_tracking_confidence=0.5) as myhands:  # Sets the model tracking confidence when detecting hands. Default 0.5.
 
           # Mirror the image
           image = cv2.flip(frame, 1)
@@ -53,7 +54,7 @@ class Hands(Node):
               # Create new message of type Hand
               msg = Hand()
               
-              # Assign the X- corrdinate value for both the pinky and index finger to the message.
+              # Assign the normalized [0-1] X- corrdinate value for both the pinky and index finger to the message.
               msg.xpinky = results.multi_hand_landmarks[0].landmark[PINKY_FINGER_TIP].x
               msg.xindex = results.multi_hand_landmarks[0].landmark[INDEX_FINGER_TIP].x
 
