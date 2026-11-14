@@ -1,6 +1,4 @@
 from setuptools import find_packages, setup
-import os   #kt added
-from glob import glob  #kt added
 
 package_name = 'aisd_vision'
 
@@ -12,8 +10,6 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        # Install data files from the resource/data folder
-        (os.path.join('share', package_name, 'resource', 'data'), glob('resource/data/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
