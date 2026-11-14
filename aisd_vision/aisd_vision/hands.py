@@ -25,7 +25,7 @@ class Hands(Node):
 
 
     def listener_callback(self, msg):
-        image = self.br.imgmsg_to_cv2(msg)
+        frame = self.br.imgmsg_to_cv2(msg)
 
         PINKY_FINGER_TIP = 20    # pinky tip landmark is index 20.
         INDEX_FINGER_TIP = 8     # Index tip landmark is index 8.
@@ -35,10 +35,13 @@ class Hands(Node):
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5) as myhands:
 
+          # Mirror the image
+          image = cv2.flip(frame, 1)
+
           # To improve performance, optionally mark the image as not writeable to
           # pass by reference.
           image.flags.writeable = False
-
+          
           #Convert image back to RGB for mediapipe.
           image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
